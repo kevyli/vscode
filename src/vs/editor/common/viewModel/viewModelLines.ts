@@ -771,7 +771,7 @@ export class ViewModelLinesFromProjectedModel implements IViewModelLines {
 	}
 
 	public convertModelPositionToViewPosition(_modelLineNumber: number, _modelColumn: number, affinity: PositionAffinity = PositionAffinity.None): Position {
-		//Here
+	
 		const validPosition = this.model.validatePosition(new Position(_modelLineNumber, _modelColumn));
 		const inputLineNumber = validPosition.lineNumber;
 		const inputColumn = validPosition.column;
@@ -792,11 +792,11 @@ export class ViewModelLinesFromProjectedModel implements IViewModelLines {
 		if (lineIndexChanged) {
 			r = this.modelLineProjections[lineIndex].getViewPositionOfModelPosition(deltaLineNumber, this.model.getLineMaxColumn(lineIndex + 1), affinity);
 		} else {
-			r = this.modelLineProjections[inputLineNumber - 1].getViewPositionOfModelPosition(deltaLineNumber, inputColumn, affinity);
+			r = this.modelLineProjections[deltaLineNumber - 1].getViewPositionOfModelPosition(deltaLineNumber, inputColumn, affinity);
 		}
 
+		return r
 		// console.log('in -> out ' + inputLineNumber + ',' + inputColumn + ' ===> ' + r.lineNumber + ',' + r);
-		return r;
 	}
 
 	/**
